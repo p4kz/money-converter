@@ -2,44 +2,32 @@ import java.text.DecimalFormat;
 
 public class Convert {
 	
-	private String userValue;
 	private double tokenValue;
+	private String userValue;
+	private String simbol;		
 	
 	String response;
-	String simbol;		
 		
 	DecimalFormat decimal = new DecimalFormat("#.##");
 	
+	public Convert (double tokenValue, String simbol, String userValue) {
+		this.tokenValue = tokenValue;
+		this.simbol = simbol;
+		this.userValue = userValue;
+	}
+	
 	public String valueToToken () {
-		double convertString = Double.parseDouble(userValue);
-		double calc = convertString / this.tokenValue;
+		double string = Double.parseDouble(userValue);
+		double calc = string / this.tokenValue;
 		
 		return this.response = String.valueOf(simbol + " " + decimal.format(calc));
 	}
 	
 	public String tokenToValue () {			
-		double convertString = Double.parseDouble(userValue);
-		double calc = convertString * this.tokenValue;
+		double string = Double.parseDouble(userValue);
+		double calc = string * this.tokenValue;
 		
 		return this.response = String.valueOf("R$ " + decimal.format(calc));
-	}
-	
-	
-	public double getTokenValue() {
-		return this.tokenValue;
-	}
-	
-	public void setTokenValue(double token, String simbol) {		
-		this.tokenValue = token;
-		this.simbol = simbol;
-	}
-	
-	public String getUserValue() {
-		return this.userValue;
-	}
-	
-	public void setUserValue(String userValue) {
-		this.userValue = userValue;
 	}
 
 }

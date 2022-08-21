@@ -21,11 +21,10 @@ public class GUI implements ActionListener {
 		JPanel panel = new JPanel();
 		JFrame frame = new JFrame();
 
-		// Window config
+		// Window
 		frame.setSize(310, 175);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
-
 		panel.setLayout(null);
 
 		// Create label
@@ -38,8 +37,8 @@ public class GUI implements ActionListener {
 		userValueInput.setBounds(200, 10, 100, 25);
 		panel.add(userValueInput);
 
-		// Create checkbox
-		String convertOptions[] = { 
+		// Create combo box
+		String comboBoxOptions[] = { 
 				"De BRL/Real para USD/Dolar", 
 				"De USD/Dolar para BRL/Real",
 				"De BRL/Real para EUR/Euro",
@@ -52,7 +51,7 @@ public class GUI implements ActionListener {
 				"De CLP/Peso Chileno para BRL/Real"
 		};
 
-		comboBox = new JComboBox<>(convertOptions);
+		comboBox = new JComboBox<>(comboBoxOptions);
 		comboBox.setBounds(10, 45, 290, 30);
 		panel.add(comboBox);
 
@@ -67,83 +66,57 @@ public class GUI implements ActionListener {
 		panel.add(buttonConverter);
 
 		buttonConverter.addActionListener(new GUI());
-
 		frame.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		String userText = userValueInput.getText();
+		String selectedComboBox = String.valueOf(comboBox.getSelectedItem());
 		
-		Convert BRLToUSD = new Convert();
-		BRLToUSD.setUserValue(userText);
-		BRLToUSD.setTokenValue(5.17, "$");
-		
-		Convert BRLToEUR = new Convert();
-		BRLToEUR.setUserValue(userText);
-		BRLToEUR.setTokenValue(5.19, "€");
-		
-		Convert BRLToGBP = new Convert();
-		BRLToGBP.setUserValue(userText);
-		BRLToGBP.setTokenValue(6.16, "£");
-		
-		Convert ARSToBRL = new Convert();
-		ARSToBRL.setUserValue(userText);
-		ARSToBRL.setTokenValue(0.038, "$");
-		
-		Convert CLPToBRL = new Convert();
-		CLPToBRL.setUserValue(userText);
-		CLPToBRL.setTokenValue(0.005, "$");
-		
-		// Dolar 
-		
-		if (comboBox.getSelectedItem() == "De BRL/Real para USD/Dolar") {
-			result.setText(BRLToUSD.valueToToken());
+		Convert BRLToUSD = new Convert(5.17, "$", userText);		
+		Convert BRLToEUR = new Convert(5.19, "€", userText);
+		Convert BRLToGBP = new Convert(6.16, "£", userText);
+		Convert BRLToARS = new Convert(0.038, "$", userText);
+		Convert BRLToCLP = new Convert(0.005, "$", userText);
+				
+		try {
+			switch(selectedComboBox) {
+			case "De BRL/Real para USD/Dolar":
+				result.setText(BRLToUSD.valueToToken());
+				break;
+			case "De USD/Dolar para BRL/Real":
+				result.setText(BRLToUSD.tokenToValue());
+				break;
+			case "De BRL/Real para EUR/Euro":
+				result.setText(BRLToEUR.valueToToken());	  
+				break;
+			case "De EUR/Euro para BRL/Real":
+				result.setText(BRLToEUR.tokenToValue());		  
+				break;
+			case "De BRL/Real para GBP/Libra Esterlina":
+				result.setText(BRLToGBP.valueToToken());		  
+				break;
+			case "De GBP/Libra Esterlina para BRL/Real":
+				result.setText(BRLToGBP.tokenToValue());		  
+				break;
+			case "De BRL/Real para ARS/Peso Argentino":
+				result.setText(BRLToARS.valueToToken());		  	
+				break;
+			case "De ARS/Peso Argentino para BRL/Real":
+				result.setText(BRLToARS.tokenToValue());
+				break;
+			case "De BRL/Real para CLP/Peso Chileno":
+				result.setText(BRLToCLP.valueToToken());
+				break;
+			case "De CLP/Peso Chileno para BRL/Real":
+				result.setText(BRLToCLP.tokenToValue());
+				break;		    
+			}
+			
+		} catch (Exception e2) {
+			result.setText("Valor invalido");
 		}
 		
-		if (comboBox.getSelectedItem() == "De USD/Dolar para BRL/Real") {
-			result.setText(BRLToUSD.tokenToValue());
-		}
-		
-		// Euro
-		
-		if (comboBox.getSelectedItem() == "De BRL/Real para EUR/Euro") {
-			result.setText(BRLToEUR.valueToToken());
-		}
-		
-		if (comboBox.getSelectedItem() == "De EUR/Euro para BRL/Real") {
-			result.setText(BRLToEUR.tokenToValue());
-		}
-		
-		// Libra Esterlina
-		
-		if (comboBox.getSelectedItem() == "De BRL/Real para GBP/Libra Esterlina") {
-			result.setText(BRLToGBP.valueToToken());
-		}
-		
-		if (comboBox.getSelectedItem() == "De GBP/Libra Esterlina para BRL/Real") {
-			result.setText(BRLToGBP.tokenToValue());
-		}
-		
-		// Peso Argentino
-		
-		if (comboBox.getSelectedItem() == "De BRL/Real para ARS/Peso Argentino") {
-			result.setText(ARSToBRL.valueToToken());
-		}
-		
-		if (comboBox.getSelectedItem() == "De ARS/Peso Argentino para BRL/Real") {
-			result.setText(ARSToBRL.tokenToValue());
-		}
-		
-		// Peso Chileno
-		
-		if (comboBox.getSelectedItem() == "De BRL/Real para CLP/Peso Chileno") {
-			result.setText(CLPToBRL.valueToToken());
-		}
-		
-		if (comboBox.getSelectedItem() == "De CLP/Peso Chileno para BRL/Real") {
-			result.setText(CLPToBRL.tokenToValue());
-		}
-
 	}
 
 }
