@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GUI implements ActionListener {
+public class App implements ActionListener {
 
 	private static JLabel userValuelabel;
 	private static JTextField userValueInput;
@@ -22,9 +21,10 @@ public class GUI implements ActionListener {
 		JFrame frame = new JFrame();
 
 		// Window
-		frame.setSize(310, 175);
+		frame.setSize(325, 175);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
+		frame.setResizable(false);
 		panel.setLayout(null);
 
 		// Create label
@@ -33,22 +33,22 @@ public class GUI implements ActionListener {
 		panel.add(userValuelabel);
 
 		// Create input
-		userValueInput = new JTextField(" ", 20);
+		userValueInput = new JTextField("", 20);
 		userValueInput.setBounds(200, 10, 100, 25);
 		panel.add(userValueInput);
 
 		// Create combo box
 		String comboBoxOptions[] = { 
-				"De BRL/Real para USD/Dolar", 
-				"De USD/Dolar para BRL/Real",
-				"De BRL/Real para EUR/Euro",
-				"De EUR/Euro para BRL/Real",
-				"De BRL/Real para GBP/Libra Esterlina",
-				"De GBP/Libra Esterlina para BRL/Real",
-				"De BRL/Real para ARS/Peso Argentino",
-				"De ARS/Peso Argentino para BRL/Real",
-				"De BRL/Real para CLP/Peso Chileno",
-				"De CLP/Peso Chileno para BRL/Real"
+			"De BRL/Real para USD/Dolar", 
+			"De USD/Dolar para BRL/Real",
+			"De BRL/Real para EUR/Euro",
+			"De EUR/Euro para BRL/Real",
+			"De BRL/Real para GBP/Libra Esterlina",
+			"De GBP/Libra Esterlina para BRL/Real",
+			"De BRL/Real para ARS/Peso Argentino",
+			"De ARS/Peso Argentino para BRL/Real",
+			"De BRL/Real para CLP/Peso Chileno",
+			"De CLP/Peso Chileno para BRL/Real"
 		};
 
 		comboBox = new JComboBox<>(comboBoxOptions);
@@ -65,7 +65,7 @@ public class GUI implements ActionListener {
 		buttonConverter.setBounds(10, 100, 290, 25);
 		panel.add(buttonConverter);
 
-		buttonConverter.addActionListener(new GUI());
+		buttonConverter.addActionListener(new App());
 		frame.setVisible(true);
 	}
 
